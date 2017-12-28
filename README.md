@@ -9,7 +9,7 @@ On télécharge les traces GPS publiques d'une zone (dans JOSM), et on enregistr
 Pour ce qui nous intéresse, on peut se contenter des points de la trace (les éléments tracks_points). On extrait ces éléments qu'on convertit en geojson (avec QGIS)
 ![track point](tracks_points.png)
 
-On convertit ça en tuiles vectorielles avec tippecanoe.
+On convertit ça en tuiles vectorielles avec [tippecanoe](https://github.com/mapbox/tippecanoe).
 Personnellement, je l'ai installé en docker, donc ça ressemble à ça :
 ```
 docker run -it --rm \
@@ -22,9 +22,9 @@ On a à la fin un fichier `traces.mbtiles`, avec une couche de données "traces_
 
 # Préparation des données OpenStreetMap
 
-On télécharge le fichier Mapbox-QA-Tiles (qui contiennent les objets OSM et leurs tags, déjà en tuiles vectorielles) qui correspond à la zone qui nous intéresse.
+On télécharge le fichier [OSM-QA-Tiles](http://osmlab.github.io/osm-qa-tiles/country.html) (qui contient les objets OSM et leurs tags, déjà en tuiles vectorielles) qui correspond à la zone qui nous intéresse.
 
-On le filtre pour ne garder que les routes et on en profite aussi pour le restreindre géographiquement, avec mbslice :
+On le filtre pour ne garder que les routes et on en profite aussi pour le restreindre géographiquement, avec [mbslice](https://www.npmjs.com/package/mbslice) :
 
 ```
 mbslice ivory_coast.mbtiles --filters '["has","highway"]' --bbox '[-4.3834083,5.256455,-4.1116333,5.386335]' > source_osm.geojson
@@ -48,7 +48,7 @@ docker run --rm -it -v $(pwd):/data -p 8080:80 klokantech/tileserver-gl
 
 # Extraction des points des traces qui ne sont pas sur des routes dans OpenStreetMap
 
-En utilisant le framework TileReduce de Mapbox, et en s'inspirant du travail réalisé par la communauté OSM Belge (merci à eux !):
+En utilisant le framework [TileReduce](https://github.com/mapbox/tile-reduce) de Mapbox, et en s'inspirant du [travail réalisé](https://github.com/osmbe/road-completion) par la communauté OSM Belge (merci à eux !):
 * on crée un buffer autour de chaque rue d'OSM
 * on ne conserve que les points de traces qui ne sont pas dans le buffer
 
