@@ -1,0 +1,4 @@
+analyser/traces.mbtiles
+analyser/source_osm.mbtiles
+analyser/diff.geojson
+analyser/node_modules

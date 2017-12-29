@@ -31,7 +31,7 @@ mbslice ivory_coast.mbtiles --filters '["has","highway"]' --bbox '[-4.3834083,5.
 ```
 On reconvertit ça en tuiles vectorielles avec tippecanoe.
 
-NB : Sur une petite zone géographique, c'est probablement plus pertinent d'extraire les routes de la zones en geojson et de transformer cela directement en mbtiles.
+NB : Sur une petite zone géographique, il est probablement plus pertinent d'extraire les routes de la zones en geojson et de transformer cela directement en mbtiles.
 
 Admettons qu'à la fin, on a un fichier `source_osm.mbtiles` avec une couche de données "source_osm".
 
@@ -53,10 +53,10 @@ En utilisant le framework [TileReduce](https://github.com/mapbox/tile-reduce) de
 * on ne conserve que les points de traces qui ne sont pas dans le buffer
 
 ```
-node index.js ../traces.mbtiles ../source_osm.mbtiles diff.geojson
+node index.js traces.mbtiles source_osm.mbtiles diff.geojson
 ```
 
-Puis, on analyse le résultat \o/
+# Analyse des résultats
 
 ![tada](resultat.png)
 
